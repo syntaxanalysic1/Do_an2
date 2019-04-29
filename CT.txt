@@ -9,6 +9,8 @@ int jfksd;
 void fnjkds(  );
 main()
 {
-fnsjkf();
+printf("nkds");
+float k;
+int jkdsf;
 return 0;
 }
