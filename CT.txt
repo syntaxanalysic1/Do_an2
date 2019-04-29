@@ -1,0 +1,14 @@
+#include<stdio.h>
+const nfd 43289
+#define fjs 842
+#include <nfwjef>
+const fnj 14
+int djs;
+int al;
+int jfksd;
+void fnjkds(  );
+main()
+{
+fnsjkf();
+return 0;
+}
