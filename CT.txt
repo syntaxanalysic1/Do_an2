@@ -1,6 +1,8 @@
 #include<stdio.h>
 const nfd 43289
+typedef gjd int
 #define fjs 842
+typedef gjd int;
 #include <nfwjef>
 const fnj 14
 int djs;
@@ -9,8 +11,7 @@ int jfksd;
 void fnjkds(  );
 main()
 {
-printf("nkds");
-float k;
-int jkdsf;
+y++;
+sizeof(jdf);
 return 0;
 }

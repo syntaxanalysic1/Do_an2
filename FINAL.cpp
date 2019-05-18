@@ -3,6 +3,8 @@
 #include <fstream>
 #define n 1000000
 #include <iomanip>
+#include<string>
+
 using namespace std;
 char x[n];
 char khkt;
@@ -42,10 +44,37 @@ void checkstring(string y)
 }
 int e=0;
 int main() {
-	ifstream file("CT.txt");
+		int chon;
+	do
+	{
+	
 	string str;
 	string file_contents;
-	while (getline(file, str))
+	int s=1;
+	string topicName;
+		
+		cout<<"\t\t\t=============================MENU============================="<<endl;
+		cout<<"\t\t\t|1.Doc chuong trinh C tu file					|"<<endl;
+		cout<<"\t\t\t|2.Tu tao chuong trinh C bang tay 				|"<<endl;
+		cout<<"\t\t\t|3.Thoat							|"<<endl;
+		cout<<"Moi ban chon "<<endl;
+		cin>>chon;
+		switch(chon)
+		{
+			case 1:	
+			break;
+			case 2:
+ 				getline(cin,topicName);
+ 				topicName = "notepad \"" + topicName + "\"";
+ 				system(topicName.c_str());s=2;		
+			break;
+			case 3: s=0;	break;
+			default: cout<<"Ban chon sai. Moi chon lai"<<endl;break;
+		}	
+	if(s==2)
+	{		
+			ifstream file("new.txt");
+			while (getline(file, str))
 	{
 	  file_contents += str;
 	  file_contents.push_back('\n');
@@ -57,6 +86,7 @@ int main() {
 	{
 		if(x[i]=='\n')nl++;
 	}
+	
 	cout<<"Line\t|\t\tCode";
 	for(int k=1;k<nl+1;k++)
 	{
@@ -84,6 +114,50 @@ int main() {
 	if(e==0)cout<<"ACCEPT"; 
 	}
     else baoloi();
+	}else if(s==1) 
+	{		ifstream file("CT.txt");
+			while (getline(file, str))
+	{
+	  file_contents += str;
+	  file_contents.push_back('\n');
+	}  
+	file_contents.copy(x,file_contents.size()+1);
+	x[file_contents.size()]='\0';
+	int nl=0;
+	for(int i=0;i<file_contents.size()+1;i++)
+	{
+		if(x[i]=='\n')nl++;
+	}
+	
+	cout<<"Line\t|\t\tCode";
+	for(int k=1;k<nl+1;k++)
+	{
+		cout<<endl<<k<<"\t|\t\t";
+		int s;
+		if(k==1)s=0;
+		for(int i=s;i<file_contents.size()+1;i++)
+		{	
+			if(x[i]!='\n') cout<<x[i];
+			if(x[i]=='\n'){
+				s=i+1;		
+				break;
+			}
+		}
+	}
+	cout<<endl;
+	
+	cout<<"-------------------------TEST---------------------------------"<<endl;
+	khkt=dockh();
+	if(khkt!='\0')
+	{
+	START();
+//	//cout<<"KH"<<khkt;
+//	if((khkt=='\0'|| khkt=='\n'|| isspace(khkt))) 
+	if(e==0)cout<<"ACCEPT"; 
+	}
+    else baoloi();
+	}
+	}while(chon!=3);
 	return 0;
 	
 }
