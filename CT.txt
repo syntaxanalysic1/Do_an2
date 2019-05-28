@@ -1,0 +1,17 @@
+#include<stdio.h>
+const nfd 43289
+typedef gjd int
+#define fjs 842
+typedef gjd int;
+#include <nfwjef>
+const fnj 14
+int djs;
+int al;
+int jfksd;
+void fnjkds(  );
+main()
+{
+y++;
+sizeof(jdf);
+return 0;
+}
