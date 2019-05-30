@@ -4,9 +4,10 @@
 #define n 1000000
 #include <iomanip>
 #include<string>
-
+#include<process.h>
 using namespace std;
 char x[n];
+char y[n];
 char khkt;
 int i=-1;
 char dockh();void baoloi();
@@ -15,7 +16,8 @@ void BIEN();void KIEU();void SO();void SN();void D();void S();void S_PHAY(); voi
 void B();void HANG(); void MAIN(); void TRA_VE();void CT();void CT_PHAY();void IN();void OUT();void SO_PHAY();void PT();
 void STRING();void STR();void LOOP();void HAM();void NMH();void HANG();void DF();void BIEN_();void BIEN__PHAY();void TENTV_PHAY();
 void PT_PHAY();void PT_PP();void STRING_PHAY();void BIENKT();void HAM_();void HAM_PHAY();void baoloithieu(char c);void Return();
-
+void CheckCMT();
+void CMT_PHAY();
 void BT(); void OP();void OP_PHAY(); void STEP();
 void TTTG(); void TTTG_PHAY();
 void TTG();
@@ -24,7 +26,7 @@ void TTLL(); void K();
 void P_SO();
 void IF(); void I(); void SW();
 void C();void C_PHAY(); void D(); void CTC();
-
+bool checkchuthich();
 char string_[]={'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','.','0','1','2','3','4','5','6','7','8','9',',','_','&'};
 char so[]={'0','1','2','3','4','5','6','7','8','9'};
 char tenbien[]={'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','_'};
@@ -42,9 +44,12 @@ void checkstring(string y)
 	}
 	
 }
+int numlines=1;
 int e=0;
+int cs=0;
+int cocmt=0;
 int main() {
-		int chon;
+	int chon;
 	do
 	{
 	
@@ -102,21 +107,36 @@ int main() {
 			}
 		}
 	}
-	cout<<endl;
-	
-	cout<<"-------------------------TEST---------------------------------"<<endl;
+		cout<<endl;
+		khkt=dockh();
+		CheckCMT();
+		if(cs==1)
+		{
+			ofstream fout;
+			fout.open("Copy.txt");
+		for(int i=0;i<file_contents.size()+1;i++)
+		{	
+			fout<<x[i];
+			y[i]=x[i];
+		}		
+		}else
+		{
+			cout<<"-------------------------TEST---------------------------------"<<endl;
 	khkt=dockh();
 	if(khkt!='\0')
 	{
 	START();
-//	//cout<<"KH"<<khkt;
-//	if((khkt=='\0'|| khkt=='\n'|| isspace(khkt))) 
 	if(e==0)cout<<"ACCEPT"; 
 	}
     else baoloi();
+	}
+	
+	
 	}else if(s==1) 
-	{		ifstream file("CT.txt");
-			while (getline(file, str))
+	{		
+	ifstream file;
+	file.open("CT.txt");
+	while (getline(file, str))
 	{
 	  file_contents += str;
 	  file_contents.push_back('\n');
@@ -145,28 +165,89 @@ int main() {
 		}
 	}
 	cout<<endl;
-	
-	cout<<"-------------------------TEST---------------------------------"<<endl;
+	/*
+	phathienchuthich();
+	if(phct) {
+	taofile();
+	copy file;
+	xoa chu thich ==>
+	test==> case 2: test tren y[i]
+	*/
+		khkt=dockh();
+		CheckCMT();
+		if(cocmt==1)
+		{
+			ofstream fout;
+			fout.open("Copy.txt");
+			cs=1;
+		for(int i=0;i<file_contents.size()+1;i++)
+		{	
+			fout<<x[i];
+			y[i]=x[i];
+		}		
+		}
+		else
+		{
+			
+		cout<<"-------------------------TEST---------------------------------"<<endl;
 	khkt=dockh();
 	if(khkt!='\0')
 	{
-	START();
-//	//cout<<"KH"<<khkt;
-//	if((khkt=='\0'|| khkt=='\n'|| isspace(khkt))) 
+	START();	
 	if(e==0)cout<<"ACCEPT"; 
 	}
     else baoloi();
+		}
+//		cout<<"=================FILE COPY==================="<<endl;
+//		int nl2=0;
+//		for(int i=0;i<sizeof(y)/sizeof(char);i++)
+//		{
+//		if(y[i]=='\n')nl2++;
+//		}
+//		cout<<"Line\t|\t\tCode";
+//		for(int k=1;k<nl2+1;k++)
+//		{
+//		cout<<endl<<k<<"\t|\t\t";
+//		int s;
+//		if(k==1)s=0;
+//		for(int i=s;i<sizeof(y)/sizeof(char);i++)
+//		{	
+//			if(y[i]!='\n') cout<<y[i];
+//			if(y[i]=='\n'){
+//				s=i+1;		
+//				break;
+//			}
+//		}
+//		}
+//		cout<<endl;
 	}
+ e=0;
+cs=0;
+cocmt=0;
+numlines=1;
+i=-1;
 	}while(chon!=3);
 	return 0;
 	
 }
-int numlines=1;
+
 char dockh()
 {
-	if(x[i]=='\n') numlines=numlines+1;
-	i++;
-	return x[i];
+	// if file copy thi y[i] else x[i] ; file copy :case 2.
+	if(cs==0)
+	{
+		if(x[i]=='\n') numlines=numlines+1;
+		i++;
+		return x[i];
+	}else if(cs==1)
+	{
+		if(y[i]=='\n') numlines=numlines+1;
+		i++;
+		return y[i];
+	}
+	
+	 
+			
 	
 }
 void skipblank()
@@ -182,15 +263,80 @@ void checkc()
 }
 void baoloi()
 {
+	if(cs==0)
+	{
 	cout<<"Error '"<<x[i]<<"' in line :" <<numlines<<endl;
+	e++;	
+	}else if(cs==1)
+	{
+		cout<<"Error '"<<y[i]<<"' in line :" <<numlines<<endl;
 	e++;
-	
+	}
+		
 }
 void baoloithieu(char c)
 {
 	cout<<"Expected '"<<c<<"' in line: "<<numlines<<endl;
 	e++;
 }
+void CheckCMT()
+{
+
+	while(khkt!='\0')
+	{
+		if(khkt=='/')
+		{
+			khkt=dockh();
+			if(khkt=='/') 
+			{
+				cocmt=1;
+				cout<<"Note in line: "<<numlines<<endl;
+			}
+			else if (khkt=='*') //
+			{
+				cocmt=1;
+				CMT_PHAY();	
+			}	
+		}	
+			
+		checkc();
+	}
+}
+
+void CMT_PHAY()
+{
+	khkt=dockh();//thay lai bang ham doc qua cmt :>>
+	if(khkt=='*')
+	{
+		khkt=dockh();
+		if(khkt=='/') 
+		{
+			
+			cout<<"Note in line: "<<numlines<<endl;
+			checkc();
+		}
+		else 
+		{			
+			if(khkt=='\n') 
+			{
+				
+				cout<<"Note in line: "<<numlines<<endl;
+			}
+			CMT_PHAY();
+		}
+		
+	}
+	else 
+		{
+			if(khkt=='\n') 
+			{
+				//cocmt=1;
+				cout<<"Note in line: "<<numlines<<endl;	
+			}
+			CMT_PHAY();
+		}
+}
+
 void START()
 {
 	KB_MAIN();	
@@ -481,7 +627,7 @@ void HAM()
 		while(isspace(khkt))khkt=dockh();
 		CT();
 		while(isspace(khkt))khkt=dockh();
-		if(khkt=='}') khkt=dockh();else baoloi();
+		if(khkt=='}') khkt=dockh();else baoloithieu('}');
 }
 void LK()
 {
