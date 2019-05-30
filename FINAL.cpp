@@ -4,13 +4,12 @@
 #define n 1000000
 #include <iomanip>
 #include<string>
-#include<process.h>
 using namespace std;
 char x[n];
 char y[n];
 char khkt;
 int i=-1;
-char dockh();void baoloi();
+char dockh();void baoloi();void reset();void XoaCMT();void TEST();
 void START();void START_PHAY();void KB_MAIN();void KB();void X();void KH_PHAY();void TV();void TV_PHAY();void TENTV();void TEN_PHAY();void TEN();void TEN_PHAY();void KH();
 void BIEN();void KIEU();void SO();void SN();void D();void S();void S_PHAY(); void LK();void LK_PHAY();void MANG(); void GAN();void LOIGOIHAM();
 void B();void HANG(); void MAIN(); void TRA_VE();void CT();void CT_PHAY();void IN();void OUT();void SO_PHAY();void PT();
@@ -35,6 +34,7 @@ string a="";
 string b="";
 string c="";
 string d="";
+string strcmt;
 void checkstring(string y)
 {
 	for(int j=0;j<y.length();j++)
@@ -76,6 +76,7 @@ int main() {
 			case 3: s=0;	break;
 			default: cout<<"Ban chon sai. Moi chon lai"<<endl;break;
 		}	
+		//tao code = tay
 	if(s==2)
 	{		
 			ifstream file("new.txt");
@@ -109,30 +110,57 @@ int main() {
 	}
 		cout<<endl;
 		khkt=dockh();
+		cout<<"===============================FIND NOTE========================"<<endl;
 		CheckCMT();
-		if(cs==1)
+		if(cocmt==1)
 		{
+			cs=1;
 			ofstream fout;
 			fout.open("Copy.txt");
-		for(int i=0;i<file_contents.size()+1;i++)
+			cs=1;
+		//xoa cmt
+		XoaCMT();
+
+		 for(int i=0;i<strcmt.size()+1;i++)
 		{	
-			fout<<x[i];
-			y[i]=x[i];
-		}		
-		}else
+			fout<<strcmt[i];
+			y[i]=strcmt[i];
+		}
+		//
+		cout<<"=====================================FILE DELETED NOTE=============================="<<endl;
+		int nl2=0;
+		for(int i=0;i<sizeof(y)/sizeof(char);i++)
 		{
-			cout<<"-------------------------TEST---------------------------------"<<endl;
-	khkt=dockh();
-	if(khkt!='\0')
-	{
-	START();
-	if(e==0)cout<<"ACCEPT"; 
+		if(y[i]=='\n')nl2++;
+		}
+		cout<<"Line\t|\t\tCode";
+		for(int k=1;k<nl2+1;k++)
+		{
+		cout<<endl<<k<<"\t|\t\t";
+		int s;
+		if(k==1)s=0;
+		for(int i=s;i<sizeof(y)/sizeof(char);i++)
+		{	
+			if(y[i]!='\n') cout<<y[i];
+			if(y[i]=='\n'){
+				s=i+1;		
+				break;
+			}
+		}
+		}
+		cout<<endl;
+    // TEST
+   		numlines=1;
+		i=-1;
+	    	TEST();   	     	 
+		}
+		else
+		{
+			TEST();
+		}
 	}
-    else baoloi();
-	}
-	
-	
-	}else if(s==1) 
+	// doc tu file
+	else if(s==1) 
 	{		
 	ifstream file;
 	file.open("CT.txt");
@@ -165,31 +193,64 @@ int main() {
 		}
 	}
 	cout<<endl;
-	/*
-	phathienchuthich();
-	if(phct) {
-	taofile();
-	copy file;
-	xoa chu thich ==>
-	test==> case 2: test tren y[i]
-	*/
 		khkt=dockh();
+		cout<<"===============================FIND NOTE========================"<<endl;
 		CheckCMT();
 		if(cocmt==1)
 		{
 			ofstream fout;
 			fout.open("Copy.txt");
 			cs=1;
-		for(int i=0;i<file_contents.size()+1;i++)
+		//xoa cmt
+		XoaCMT();
+
+		 for(int i=0;i<strcmt.size()+1;i++)
 		{	
-			fout<<x[i];
-			y[i]=x[i];
-		}		
+			fout<<strcmt[i];
+			y[i]=strcmt[i];
+		}
+		//
+		cout<<"=====================================FILE DELETED NOTE=============================="<<endl;
+		int nl2=0;
+		for(int i=0;i<sizeof(y)/sizeof(char);i++)
+		{
+		if(y[i]=='\n')nl2++;
+		}
+		cout<<"Line\t|\t\tCode";
+		for(int k=1;k<nl2+1;k++)
+		{
+		cout<<endl<<k<<"\t|\t\t";
+		int s;
+		if(k==1)s=0;
+		for(int i=s;i<sizeof(y)/sizeof(char);i++)
+		{	
+			if(y[i]!='\n') cout<<y[i];
+			if(y[i]=='\n'){
+				s=i+1;		
+				break;
+			}
+		}
+		}
+		cout<<endl;
+    // TEST
+   		numlines=1;
+		i=-1;
+	    	TEST();   	     	 
 		}
 		else
 		{
-			
-		cout<<"-------------------------TEST---------------------------------"<<endl;
+			TEST();
+		}
+	}
+	reset();
+	}while(chon!=3);
+	return 0;
+	
+}
+void TEST()
+{
+		
+	cout<<"-------------------------TEST---------------------------------"<<endl;
 	khkt=dockh();
 	if(khkt!='\0')
 	{
@@ -197,40 +258,15 @@ int main() {
 	if(e==0)cout<<"ACCEPT"; 
 	}
     else baoloi();
-		}
-//		cout<<"=================FILE COPY==================="<<endl;
-//		int nl2=0;
-//		for(int i=0;i<sizeof(y)/sizeof(char);i++)
-//		{
-//		if(y[i]=='\n')nl2++;
-//		}
-//		cout<<"Line\t|\t\tCode";
-//		for(int k=1;k<nl2+1;k++)
-//		{
-//		cout<<endl<<k<<"\t|\t\t";
-//		int s;
-//		if(k==1)s=0;
-//		for(int i=s;i<sizeof(y)/sizeof(char);i++)
-//		{	
-//			if(y[i]!='\n') cout<<y[i];
-//			if(y[i]=='\n'){
-//				s=i+1;		
-//				break;
-//			}
-//		}
-//		}
-//		cout<<endl;
-	}
- e=0;
-cs=0;
-cocmt=0;
-numlines=1;
-i=-1;
-	}while(chon!=3);
-	return 0;
-	
 }
-
+void reset()
+{
+	 e=0;
+	cs=0;
+	cocmt=0;
+	numlines=1;
+	i=-1;
+}
 char dockh()
 {
 	// if file copy thi y[i] else x[i] ; file copy :case 2.
@@ -278,6 +314,48 @@ void baoloithieu(char c)
 {
 	cout<<"Expected '"<<c<<"' in line: "<<numlines<<endl;
 	e++;
+}
+// tim va thay the
+
+void XoaCMT()
+{
+	string k=string(x);
+	strcmt=k;
+	int vt2=0;
+	int vt3=0;
+	if(strcmt.find("*/")!=-1)
+	{
+		while(vt2!=-1)
+	{
+		vt2= strcmt.find("/*");
+		vt3=strcmt.find("*/");
+		string tt="";
+		if(vt2==-1&&vt3==-1)break;
+			for(int f=vt2;f<vt3+2;f++)
+		{
+			tt+=strcmt[f];
+			
+		}
+		strcmt.replace(vt2,tt.length(),"\n");		
+	}
+	}	
+	int vt=0;
+	while(vt!=-1){	
+	vt=strcmt.find("//");
+	string tt="";
+	if(vt==-1)break;
+	for(int f=vt;f<strcmt.length();f++)
+	{
+		if(strcmt[f]=='\n')
+		{
+			break;
+		 } 
+		tt+=strcmt[f];
+		
+	}
+	strcmt.erase(vt,tt.length());
+	}
+	
 }
 void CheckCMT()
 {
@@ -874,7 +952,10 @@ if(khkt=='m')
 			}else baoloithieu('{');		
 		}else  baoloithieu(')');
 	}else baoloithieu('(');
-}else baoloi();
+}else {
+	cout<<"Expect main in line  "<<numlines<<endl;
+}
+
 
 }
 void TRA_VE()
