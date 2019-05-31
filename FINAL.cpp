@@ -48,6 +48,7 @@ int numlines=1;
 int e=0;
 int cs=0;
 int cocmt=0;
+int sumlines=1;
 int main() {
 	int chon;
 	do
@@ -324,22 +325,28 @@ void XoaCMT()
 	strcmt=k;
 	int vt2=0;
 	int vt3=0;
-	while(vt2!=-1)
+	if(strcmt.find("/*")!=-1)
 	{
-		vt2= strcmt.find("/*");
-		vt3=strcmt.find("*/");
-		string tt="";
-		
-		if(vt2==-1&&vt3==-1)break;
-		if(vt2!=-1&&vt3!=-1)
-		 {
-				for(int f=vt2;f<vt3+2;f++)
+		while(vt2!=-1)
 		{
-			tt+=strcmt[f];
-			
+			vt2= strcmt.find("/*");
+			vt3=strcmt.find("*/");
+			string tt="";
+			if(vt2==-1&&vt3==-1)break;
+			else if(vt2!=-1&&vt3!=-1)
+				for(int f=vt2;f<vt3+2;f++)
+				{
+					tt+=strcmt[f];
+				}
+			else if(vt2!=-1&&vt3==-1)
+			{
+				for(int f=vt2;f<sumlines;f++)
+				{
+					tt+=strcmt[f];
+				}
+			}
+			strcmt.replace(vt2,tt.length(),"\n");		
 		}
-		strcmt.replace(vt2,tt.length(),"\n");
-		}					
 	}
 		
 	int vt=0;
@@ -383,18 +390,19 @@ void CheckCMT()
 			
 		checkc();
 	}
+	sumlines=i;
+	cout<<sumlines;
 }
 
 void CMT_PHAY()
 {
-
 	khkt=dockh();//thay lai bang ham doc qua cmt :>>
 	if(khkt=='*')
 	{
 		khkt=dockh();
 		if(khkt=='/') 
 		{
-
+			
 			cout<<"Note in line: "<<numlines<<endl;
 			checkc();
 		}
@@ -402,12 +410,12 @@ void CMT_PHAY()
 		{			
 			if(khkt=='\n') 
 			{
-
+				
 				cout<<"Note in line: "<<numlines<<endl;
 			}
 			CMT_PHAY();
 		}
-
+		
 	}
 	else if(khkt!='\0')
 		{
