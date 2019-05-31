@@ -209,6 +209,7 @@ int main() {
 			fout<<strcmt[i];
 			y[i]=strcmt[i];
 		}
+		int sy=strcmt.size()+1;
 		//
 		cout<<"=====================================FILE DELETED NOTE=============================="<<endl;
 		int nl2=0;
@@ -323,24 +324,27 @@ void XoaCMT()
 	strcmt=k;
 	int vt2=0;
 	int vt3=0;
-	if(strcmt.find("*/")!=-1)
-	{
-		while(vt2!=-1)
+	while(vt2!=-1)
 	{
 		vt2= strcmt.find("/*");
 		vt3=strcmt.find("*/");
 		string tt="";
+		
 		if(vt2==-1&&vt3==-1)break;
-			for(int f=vt2;f<vt3+2;f++)
+		if(vt2!=-1&&vt3!=-1)
+		 {
+				for(int f=vt2;f<vt3+2;f++)
 		{
 			tt+=strcmt[f];
 			
 		}
-		strcmt.replace(vt2,tt.length(),"\n");		
+		strcmt.replace(vt2,tt.length(),"\n");
+		}					
 	}
-	}	
+		
 	int vt=0;
-	while(vt!=-1){	
+	while(vt!=-1){
+		
 	vt=strcmt.find("//");
 	string tt="";
 	if(vt==-1)break;
@@ -383,13 +387,14 @@ void CheckCMT()
 
 void CMT_PHAY()
 {
+
 	khkt=dockh();//thay lai bang ham doc qua cmt :>>
 	if(khkt=='*')
 	{
 		khkt=dockh();
 		if(khkt=='/') 
 		{
-			
+
 			cout<<"Note in line: "<<numlines<<endl;
 			checkc();
 		}
@@ -397,14 +402,14 @@ void CMT_PHAY()
 		{			
 			if(khkt=='\n') 
 			{
-				
+
 				cout<<"Note in line: "<<numlines<<endl;
 			}
 			CMT_PHAY();
 		}
-		
+
 	}
-	else 
+	else if(khkt!='\0')
 		{
 			if(khkt=='\n') 
 			{
@@ -417,7 +422,9 @@ void CMT_PHAY()
 
 void START()
 {
-	KB_MAIN();	
+	while(isspace(khkt))khkt=dockh();
+	KB_MAIN();
+	while(isspace(khkt))khkt=dockh();	
 	START_PHAY();	
 }
 //HAM
@@ -466,6 +473,7 @@ void KB_MAIN()
 void KB()
 {
 	TV();
+	while(isspace(khkt))khkt=dockh();
 	KH();
 }
 void KH()
@@ -479,7 +487,7 @@ void X()
 }
 void KH_PHAY()
 {
-	if(isspace(khkt)) khkt=dockh();
+	while(isspace(khkt)) khkt=dockh();
 	if(khkt=='i'||khkt=='f'||khkt=='d'||khkt=='l'||khkt=='s'||khkt=='b'||khkt=='c'||khkt=='u'||khkt=='v')
 	{
 		KH();
@@ -925,12 +933,10 @@ void LOIGOIHAM()
 void MAIN()
 {
 //TRA_VE();
-a="main";
-b="MAIN";
 while(isspace(khkt)) khkt=dockh();
 if(khkt=='m')
 { 	
-	checkstring(a);
+	checkstring("main");while(isspace(khkt)) khkt=dockh();
 	if(khkt=='(')
 	{
 		khkt=dockh();
@@ -954,6 +960,7 @@ if(khkt=='m')
 	}else baoloithieu('(');
 }else {
 	cout<<"Expect main in line  "<<numlines<<endl;
+	e++;
 }
 
 
