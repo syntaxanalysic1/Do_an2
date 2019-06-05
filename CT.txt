@@ -1,7 +1,7 @@
 
 #include<stdio.h>
 const nfd 43289
-typedef gjd int
+typedef gjd int;
 //vjkefwvlfde
 #define fjs 842
 //typedef gjd int;//
@@ -13,7 +13,11 @@ int jfksd;
 void fnjkds(  );*/
 main()
 {
+int a;
+int b=a;
+y+=b;
 y++;
+y=a;
 sizeof(jdf);
 return 0;
 }
