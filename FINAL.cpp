@@ -17,7 +17,7 @@ void STRING();void STR();void LOOP();void HAM();void NMH();void HANG();void DF()
 void PT_PHAY();void PT_PP();void STRING_PHAY();void BIENKT();void HAM_();void HAM_PHAY();void baoloithieu(char c);void Return();
 void CheckCMT();
 void CMT_PHAY();
-void BT(); void OP();void OP_PHAY(); void STEP();
+void BT(); void BT_PHAY(); void OP();void OP_PHAY(); void OP2(); void STEP();
 void TTTG(); void TTTG_PHAY();
 void TTG();
 void TTTH(); void A(); void GT(); void P_TOAN(); void P_TG(); void P_G();
@@ -167,6 +167,8 @@ int main() {
 		}
 		else
 		{
+			numlines=1;
+			i=-1;
 			TEST();
 		}
 	}
@@ -251,6 +253,8 @@ int main() {
 		}
 		else
 		{
+			numlines=1;
+			i=-1;
 			TEST();
 		}
 	}
@@ -401,7 +405,6 @@ void CheckCMT()
 		checkc();
 	}
 	sumlines=i;
-	cout<<sumlines;
 }
 
 void CMT_PHAY()
@@ -533,6 +536,7 @@ void KIEU()
 				if(isspace(khkt));else baoloi();
 			}else if(khkt=='f')
 			{
+				khkt=dockh();
 				IF();//if
 			}
 			
@@ -561,10 +565,11 @@ void KIEU()
 				}else {
 					
 					if(isspace(khkt))khkt=dockh();
+					
 					if(khkt=='{')
 					{
 						LOOP();//do while
-					}
+					}else baoloithieu('{');
 				}
 			}else if(khkt=='e')
 			{
@@ -677,6 +682,7 @@ void MANG(){
 	{		
 	    khkt=dockh();	
 		TEN();
+		
 		if(isspace(khkt))khkt=dockh();//neu blank thi nhay tiep				
 		if(khkt=='[')
 		{
@@ -913,11 +919,20 @@ void TV()
 }
 void TV_PHAY()
 {
-
-	if(khkt=='#'||khkt=='c'||khkt=='t')
+if(khkt=='#'||khkt=='c'||khkt=='t')
 	{
 		TV();
 	}
+	else if(khkt=='d'|| khkt=='i')
+	{
+		baoloithieu('#');
+		while(khkt!='\n'){
+			khkt=dockh();
+		}
+		checkc();
+		TV();
+	}
+	
 }
 void TENTV()
 {
@@ -981,10 +996,7 @@ if(khkt=='m')
 
 
 }
-void TRA_VE()
-{
-	KIEU();
-}
+
 void Return()
 {
 
@@ -1009,9 +1021,10 @@ else if(khkt=='p')
 {
 	OUT();	
 	CT_PHAY();
-}else if(khkt=='w')
+}
+else if(khkt=='w')
 {
-	LOOP();//while
+	LOOP();
 	CT_PHAY();
 }
 else if(khkt=='r')
@@ -1020,6 +1033,7 @@ else if(khkt=='r')
 }
 else 
 {
+	
 	OP();
 	CT_PHAY();	
 }
@@ -1027,13 +1041,14 @@ else
 }
 void CT_PHAY()
 {
-	if(isspace(khkt)==0)
-{
-	CT();
-}	else 
-{
-	checkc();
-}
+	
+	if(isspace(khkt)==0&&khkt!='}')
+	{
+		CT();
+	}
+	
+	
+	
 }
 
 //Part 2
@@ -1054,7 +1069,7 @@ void IN()
 			if(khkt==')')khkt=dockh();else baoloithieu(')');
 			if(khkt==';')khkt=dockh();else baoloithieu(';');
 		}
-	}else baoloithieu(')');
+	}else baoloithieu('(');
 }
 
 void OUT()
@@ -1089,7 +1104,7 @@ void OUT()
 										if(khkt==')') 
 										{
 											khkt=dockh();
-											if(khkt==';') khkt=dockh();
+											if(khkt==';') checkc();
 											else baoloithieu(';');
 										}
 										else baoloithieu(')');
@@ -1098,7 +1113,7 @@ void OUT()
 								}
 								else baoloithieu('"');
 							}
-							else baoloi();
+							else baoloithieu('(');
 						}
 						else baoloi();
 					}
@@ -1125,8 +1140,8 @@ void LOOP()
 		if(khkt=='(')
 		{
 			khkt=dockh();
-			BT();// qua BT khkt=)
-			if(khkt==')')khkt=dockh();else baoloithieu(')');
+			BT();
+			if(khkt==')') khkt=dockh(); else baoloithieu(')');
 			if(isspace(khkt))khkt=dockh();
 			if(khkt=='{'){
 				khkt=dockh();
@@ -1140,17 +1155,22 @@ void LOOP()
 	else if(khkt=='{')
 	{
 		//do while
-		khkt=dockh();
-		while(isspace(khkt))khkt=dockh();
+		
+		checkc();
+//		while(isspace(khkt))khkt=dockh();
 		CT();
-		while(isspace(khkt))khkt=dockh();
+		
+//		while(isspace(khkt))khkt=dockh();
+		
 			if(khkt=='}')
 			{
 				khkt=dockh();
+				
 				if(isspace(khkt))khkt=dockh();
 				if(khkt=='w')
 				{
 					checkstring("while");
+					
 					if(isspace(khkt))khkt=dockh();
 					if(khkt=='(')
 					{
@@ -1169,32 +1189,36 @@ void LOOP()
 		khkt=dockh();
 			if(khkt=='r')
 			{
-				khkt=dockh();
+				checkc();
 				if(khkt=='(')
 				{
 					khkt=dockh();
 					BIEN();
-						BT();
+					BT();
 						if(khkt==';')
 						{
-							khkt=dockh();
-							OP_PHAY();
+							checkc();
+							OP2();
 							if(isspace(khkt))khkt=dockh();
 							if(khkt==')')
 							{
 								khkt=dockh();
 								if(isspace(khkt))khkt=dockh();
-								if(khkt=='{')
+								if(khkt=='{'||khkt==';')
 								{
-									checkc();
-									CT();
-									if(khkt=='}')
+									if(khkt=='{')
 									{
 										checkc();
+										CT();
+										if(khkt=='}')
+										{
+											checkc();
+										}
+										else baoloithieu('}');
 									}
-									else baoloi();
+									else if(khkt==';')khkt=dockh();
 								}
-								else if(khkt==';')khkt=dockh();else if(isspace(khkt))khkt=dockh();
+								else if(isspace(khkt))khkt=dockh();
 								else baoloi();
 							}
 							else baoloi();
@@ -1206,18 +1230,88 @@ void LOOP()
 				else baoloi();
 	}
 }
+
+void OP2()
+{
+	if(khkt=='+')
+	{
+		khkt=dockh();
+		if(khkt=='+')
+		{
+			khkt=dockh();
+			STRING();
+		} 
+		else baoloithieu('+');	
+	}	
+	else if(khkt=='-')
+	{
+		khkt=dockh();
+		if(khkt=='-')
+		{
+			khkt=dockh();
+			STRING();
+		}
+		else baoloithieu('-');
+	}
+	else
+	{
+		TEN();
+		if(khkt=='+')
+		{
+			khkt=dockh();
+			if(khkt=='+')//TOAN TU TANG GIAM form TEN++|--
+			{
+				khkt=dockh();
+			}
+			else if(khkt=='=')//TOAN TU GAN form TEN +=|-=|*=|/=|%= A
+			{
+				STRING();
+			}
+			else baoloi();
+		}
+		else if(khkt=='-')
+		{
+			khkt=dockh();
+			if(khkt=='-')//TOAN TU TANG GIAM form TEN++|--
+			{
+				khkt=dockh();
+			}
+			else if(khkt=='=')//TOAN TU GAN form TEN +=|-=|*=|/=|%= A
+			{
+				STRING();
+			}
+			else baoloi();
+		}
+		
+		else if(khkt=='*'||khkt=='%'||khkt=='/')//TOAN TU GAN form TEN +=|-=|*=|/=|%= A
+		{
+			khkt=dockh();
+			STRING();
+		}
+		
+	}	
+}
+
+
 void BT()
 {
 	if(khkt=='(')
 	{
 		STRING();
-		P_SO();
+		BT_PHAY();
 		if(khkt==')') khkt=dockh();
 	}
 	else
 	{
 		STRING();
-		P_SO();	
+		BT_PHAY();
+	}
+}
+void BT_PHAY()
+{
+	if(khkt=='='||khkt=='!'||khkt=='<'||khkt=='>')
+	{
+		P_SO();
 	}
 }
 
@@ -1228,19 +1322,16 @@ void P_SO()
 		khkt=dockh();
 		if(khkt=='=')
 		{
-			khkt=dockh();
 			STRING();
-		}	
+		}	else STRING();
 	}
 	else if(khkt=='<'||khkt=='>')
 	{
 		khkt=dockh();
 		if(khkt=='=')
 		{
-			khkt=dockh();
 			STRING();
-		}
-		else STRING(); 
+		} else STRING();
 	}
 //	else khkt=dockh();
 }
@@ -1267,16 +1358,12 @@ void STEP()
 void OP()
 {
 	OP_PHAY();
-//	if(khkt==';')
-//	{
-//		cout<<"Correct";
-//		khkt=dockh();
-//	}
-//	else baoloithieu(';');
+
 }
 
 void OP_PHAY()
 {	
+
 	//TOAN TU SIZEof
 			if(khkt=='z')
 			{
@@ -1329,6 +1416,7 @@ void OP_PHAY()
 	else
 	{
 		TEN();
+		
 		//TOAN TU TOAN HOC: form : TEN=A
 		if(khkt=='=')
 		{
@@ -1343,12 +1431,14 @@ void OP_PHAY()
 		else if(khkt=='+')
 		{
 			khkt=dockh();
+			
 			if(khkt=='+')//TOAN TU TANG GIAM form TEN++|--
 			{
 				TTTG_PHAY();
 			}
 			else if(khkt=='=')//TOAN TU GAN form TEN +=|-=|*=|/=|%= A
 			{
+				
 				TTG();
 			}
 			else baoloi();
@@ -1448,6 +1538,7 @@ void A()
 	{
 		STRING();//TEN(); //S
 		P_TOAN();
+//		khkt=dockh();
 		if(khkt==';') 
 		{
 			checkc();
@@ -1480,7 +1571,7 @@ void TTLL()
 	}
 	else if(khkt=='=')
 	{
-		TEN();
+		STRING();
 	}
 	else if(khkt=='(')
 	{
@@ -1524,7 +1615,7 @@ void K()
 //CONDITION
 void IF()
 {
-			khkt=dockh();
+		
 			if(khkt=='(')
 			{
 				khkt=dockh();
@@ -1536,7 +1627,7 @@ void IF()
 //IF
 void I()
 {
-	TTLL();
+	OP();
 	if(khkt==')')
 	{
 		checkc();
