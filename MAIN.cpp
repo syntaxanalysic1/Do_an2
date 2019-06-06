@@ -1258,9 +1258,9 @@ void LOOP()
 							if(isspace(khkt))khkt=dockh();
 							if(khkt==')')
 							{
-								khkt=dockh();
-								
-								if(isspace(khkt))khkt=dockh();
+//								khkt=dockh();
+//								if(isspace(khkt))khkt=dockh();
+checkc();
 								if(khkt=='{'||khkt==';')
 								{
 									if(khkt=='{')
@@ -1575,12 +1575,22 @@ void TTTG_PHAY()
 void TTG()
 {
 	A();
+	if(khkt==';') 
+		{
+			checkc();
+		}
+		else baoloithieu(';');
 }
 
 //TOAN TU TOAN HOC
 void TTTH()
 {
 	A();
+	if(khkt==';') 
+		{
+			checkc();
+		}
+		else baoloithieu(';');
 }
 
 void A()
@@ -1591,22 +1601,15 @@ void A()
 		P_TOAN();
 		if(khkt==')')
 		{
-			P_TOAN();
-			if(khkt==';') checkc();else baoloithieu(';');
-			
+			P_TOAN();			
 		}
 		else baoloithieu(')');
 	}
 	else
 	{
 		STRING();//TEN(); //S
-		P_TOAN();
-		if(khkt==';') 
-		{
-			checkc();
-		}
-		else baoloithieu(';');	
-	}	
+		P_TOAN();	 
+	}
 }
 
 void P_TOAN()
@@ -1614,7 +1617,8 @@ void P_TOAN()
 	if(khkt=='+'||khkt=='-'||khkt=='/'||khkt=='%'||khkt=='*')
 	{
 		A();	
-	}		
+	}	
+	
 }
 
 

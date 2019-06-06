@@ -1,21 +1,30 @@
+
 #include<stdio.h>
 const nfd 43289
-typedef gjd int;
+typedef gjd int
+//vjkefwvlfde
 define fjs 842
+//typedef gjd int;//
 #include <nfwjef>
-const s 14
+const fnj 14
+int djs;
+int al;
+int jfksd;
 void fnjkds(  );
 main()
 {
-do
-{
-int k;
-}while(a);
-if(a>5)A++;
-A+=3;
+y++;
+
+for(int i=2;i<4;i++)
+
+printf("fmkd");
+if(i<0) i++;
+
+int a;
+a=b+c;
+goiham();
 return 0;
 }
-int nfdkjs()
+void nfksd()
 {
-a++;
 }
